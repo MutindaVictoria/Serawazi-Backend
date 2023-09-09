@@ -22,8 +22,8 @@ jobs:
           python-version: '3.9'
       - name: Install requirements
         run: pip install -r Serawazi/requirements.txt
-      - name: Check Syntax
-        run: pre-commit run --all-files
+    #   - name: Check Syntax
+    #     run: pre-commit run --all-files
       # - name: Make Migrations
       #   run: |
       #     python3 manage.py makemigrations

@@ -10,16 +10,14 @@ class Message(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     bot_response = models.TextField('Response')
     chatgpt_api_key = models.CharField(max_length=100)
-    summary = models.JSONField(null=True, blank=True)  # Allow it to be nullable and blank
+    summary = models.JSONField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        # Construct the summary JSON based on content and bot_response
         summary_data = {
             "content": self.content,
             "bot_response": self.bot_response,
         }
 
-        # Convert the dictionary to JSON and store it in the summary field
         self.summary = json.dumps(summary_data)
 
         super(Message, self).save(*args, **kwargs)

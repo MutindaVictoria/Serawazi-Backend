@@ -1,1 +1,6 @@
 __pycache__/
+env
+myenv/
+db.sqlite3
+cache
+build

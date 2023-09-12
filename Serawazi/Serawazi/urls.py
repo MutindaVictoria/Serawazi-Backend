@@ -15,8 +15,29 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
+schema_view = get_schema_view(
+    openapi.Info(
+        title="SeraWazi API",
+        default_version='v1',
+        description="API documentation for the SeraWazi project",
+        terms_of_service="https://example.com/terms/",
+        contact=openapi.Contact(email="contact@serawazi.com"),
+        license=openapi.License(name="MIT License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('category/', include("category.urls")),
+    path('virtual_items/', include("virtual_items.urls")),
+    path('serawazi/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('serawazi/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-ui'),
 ]
+

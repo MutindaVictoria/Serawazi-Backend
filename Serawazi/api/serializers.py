@@ -17,7 +17,6 @@ class User_RegistrationSerializer(serializers.ModelSerializer):
 
 
 
-
 class ScenariosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scenarios

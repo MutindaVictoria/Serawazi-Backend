@@ -3,13 +3,14 @@ from rest_framework.views import APIView
 from chatbotmodel.models import Message
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.exceptions import NotFound
 
 
 
 class MessageListView (APIView):
    def get(self, request):
     message = Message.objects.all()
-    serializer =MessageSerializer(message, many =True)
+    serializer = MessageSerializer(message, many =True)
     return Response(serializer.data)
    def post(self,request):
         serializer = MessageSerializer(data = request.data)
@@ -19,9 +20,12 @@ class MessageListView (APIView):
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 class MessageDetailView(APIView):
     def get(self, request,id,format = None):
-        message= Message.objects.get(id=id)
-        serializer = MessageSerializer(message)
-        return Response(serializer.data)
+        try:
+            message= Message.objects.get(id=id)
+            serializer = MessageSerializer(message)
+            return Response(serializer.data)
+        except Message.DoesNotExist:
+            raise NotFound("Messge not found")
     def put(self, request,id,format = None):
        message = Message.objects.get(id=id)
        serializer = MessageSerializer(message,request.data)
@@ -32,7 +36,12 @@ class MessageDetailView(APIView):
     def delete(self, request,id,format = None):
         message=Message.objects.get(id=id)
         message.delete()
-        return Response("message", status = status.HTTP_204_NO_CONTENT)
+        return Response("messageDeleted", status = status.HTTP_204_NO_CONTENT)
+
+
+
+
+
 
 
 

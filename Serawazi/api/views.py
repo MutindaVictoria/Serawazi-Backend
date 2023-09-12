@@ -69,7 +69,7 @@ class ScenariosDetailView(APIView):
     def delete(self, request,id,format = None):
         scenarios = Scenarios.objects.get(id=id)
         scenarios.delete()
-        return Response("scenariosDeleted", status = status.HTTP_204_NO_CONTENT)      
+        return Response("scenariosDeleted", status = status.HTTP_204_NO_CONTENT)   
 
 
 

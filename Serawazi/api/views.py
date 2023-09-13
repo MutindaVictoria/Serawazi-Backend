@@ -29,6 +29,7 @@ class User_RegistrationDetailView(APIView):
         user_registration= User_Registration.objects.get(id=id)
         serializer = User_RegistrationSerializer(user_registration)
         return Response(serializer.data)
+    
     def put(self, request,id,format = None):
        user_registration = User_Registration.objects.get(id=id)
        serializer = User_RegistrationSerializer(user_registration,request.data)
@@ -57,14 +58,17 @@ class ScenariosListView (APIView):
 class ScenariosDetailView(APIView):
     def get(self, request,id,format = None):
         scenarios= Scenarios.objects.get(id=id)
-        serializer = User_RegistrationSerializer(scenarios)
+        serializer = ScenariosSerializer(scenarios)
         return Response(serializer.data)
+    
+
     def put(self, request,id,format = None):
        scenarios = Scenarios.objects.get(id=id)
        serializer = ScenariosSerializer(scenarios,request.data)
        if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+       
        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     def delete(self, request,id,format = None):
         scenarios = Scenarios.objects.get(id=id)

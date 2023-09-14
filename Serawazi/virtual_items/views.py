@@ -5,21 +5,12 @@ from .models import VirtualItem
 from .serializers import VirtualItemSerializer
 
 class VirtualItemDetail(APIView):
-    def get(self, request, id):
-        try:
-            virtual_item = VirtualItem.objects.get(id=id)
-            serializer = VirtualItemSerializer(virtual_item)
-            return Response(serializer.data)
-        except VirtualItem.DoesNotExist:
-            return Response({"detail": "VirtualItem not found"}, status=status.HTTP_404_NOT_FOUND)
-
-class VirtualItemList(APIView):
     def get(self, request):
         virtual_items = VirtualItem.objects.all()
         serializer = VirtualItemSerializer(virtual_items, many=True)
         return Response(serializer.data)
 
-class VirtualItemCreate(APIView):
+
     def post(self, request):
         serializer = VirtualItemSerializer(data=request.data)
         if serializer.is_valid():
@@ -28,6 +19,14 @@ class VirtualItemCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class VirtualItemUpdate(APIView):
+    def get(self, request, id):
+        try:
+            virtual_item = VirtualItem.objects.get(id=id)
+            serializer = VirtualItemSerializer(virtual_item)
+            return Response(serializer.data)
+        except VirtualItem.DoesNotExist:
+            return Response({"detail": "VirtualItem not found"}, status=status.HTTP_404_NOT_FOUND)
+
     def put(self, request, id):
         try:
             virtual_item = VirtualItem.objects.get(id=id)
@@ -39,7 +38,8 @@ class VirtualItemUpdate(APIView):
         except VirtualItem.DoesNotExist:
             return Response({"detail": "VirtualItem not found"}, status=status.HTTP_404_NOT_FOUND)
 
-class VirtualItemDelete(APIView):
+
+
     def delete(self, request, id):
         try:
             virtual_item = VirtualItem.objects.get(id=id)
@@ -47,3 +47,4 @@ class VirtualItemDelete(APIView):
             return Response({"detail": "VirtualItem deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except VirtualItem.DoesNotExist:
             return Response({"detail": "VirtualItem not found"}, status=status.HTTP_404_NOT_FOUND)
+    

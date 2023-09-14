@@ -1,19 +1,18 @@
-# from django.test import TestCase
-# from rest_framework.test import APIClient
-# from rest_framework import status
-# from .models import VirtualItem
+from django.test import TestCase
+from .models import VirtualItem
 
-# class VirtualItemTestCase(TestCase):
-#     def setUp(self):
-#         self.client = APIClient()
-#         self.virtual_item_data = {'name': 'Iconic Item', 'image': 'Iconic.jpg'}
+class VirtualItemModelTest(TestCase):
+    def setUp(self):
+        # Create a sample VirtualItem
+        self.virtual_item = VirtualItem.objects.create(
+            name='Test Virtual Item',
+            image='images/test_image.jpg'  # This path should be relative to your MEDIA_ROOT
+        )
 
-#     def test_api_can_create_virtual_item(self):
-#         response = self.client.post('/virtual-items/', self.virtual_item_data, format='json')
-#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    def test_virtual_item_creation(self):
+        virtual_item = VirtualItem.objects.get(name='Test Virtual Item')
+        self.assertEqual(virtual_item.name, 'Test Virtual Item')
+        self.assertEqual(virtual_item.image, 'images/test_image.jpg')  # Check the image path
 
-#     def test_api_can_get_virtual_item(self):
-#         virtual_item = VirtualItem.objects.create(**self.virtual_item_data)
-#         response = self.client.get(f'/virtual-items/{virtual_item.id}/', format='json')
-#         self.assertEqual(response.status_code, status.HTTP_200_OK)
-#         self.assertContains(response, virtual_item.name)
+    def test_virtual_item_str_representation(self):
+        self.assertEqual(str(self.virtual_item), 'Test Virtual Item')

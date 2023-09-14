@@ -18,7 +18,7 @@ class CategoryTestCase(TestCase):
             "Is_Active": True,
         }
         response = self.client.post(reverse("category-list"), data, format="json")
-        # self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        
 
     def test_get_categories(self):
         self.create_category()

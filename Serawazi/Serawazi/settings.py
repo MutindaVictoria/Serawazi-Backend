@@ -38,11 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'scenario_collection',
+    'category',
+    'virtual_items',
     'rest_framework',
-    'api',
     'drf_yasg',
-    
 ]
 
 MIDDLEWARE = [
@@ -81,16 +80,18 @@ WSGI_APPLICATION = 'Serawazi.wsgi.application'
 
 DATABASES = {
     'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'greenreviveserawazidb',
-           'USER': 'greenreviveuser',
-           'PASSWORD': '@serawazi@5708',
-           'HOST': 'localhost',
-           'PORT': '5432',
+           'ENGINE': os.environ.get('DB_ENGINE'),
+           'NAME': os.environ.get('DB_NAME'),
+           'USER': os.environ.get('DB_USER'),
+           'PASSWORD': os.environ.get('DB_PASSWORD'),
+           'HOST': os.environ.get('DB_HOST'),
+           'PORT': os.environ.get('DB_PORT'),
        }
 }
-MEDIA_URL='/covers/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'covers')
+MEDIA_URL='/images/'
+MEDIA_ROOT =os.path.join(BASE_DIR,'images')
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

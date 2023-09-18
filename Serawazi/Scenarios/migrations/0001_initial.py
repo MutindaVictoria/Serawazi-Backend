@@ -16,9 +16,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('scenario_level', models.IntegerField()),
-                ('scenario_title', models.CharField()),
+                ('scenario_title', models.CharField(max_length=255)),
                 ('Background_info', models.TextField()),
-                ('Decision_options', models.CharField()),
+                ('Decision_options', models.CharField(max_length=255)),
                 ('Reward_points', models.IntegerField()),
             ],
         ),

@@ -1,49 +1,12 @@
-# from django.contrib.auth.models import AbstractUser, Permission, Group
-# from django.db import models
 
-# class CustomUser(AbstractUser):
-#     groups = models.ManyToManyField(Group, related_name='customusers')
-#     user_permissions = models.ManyToManyField(Permission, related_name='customusers')
-#     USERNAME_FIELD = 'email'
-#     REQUIRED_FIELDS = ['username', 'password']
-
-# class Admin(CustomUser):
-#     age = models.PositiveIntegerField()
-#     GENDER_CHOICES = [
-#         ('M', 'Male'),
-#         ('F', 'Female'),
-#     ]
-
-#     gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
-#     achievements = models.TextField(default='', blank=True)
-
-#     class Meta:
-#         verbose_name_plural = "Admins"
-
-# class RegularUser(CustomUser):
-#     custom_user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='related_regular_user')
-
-#     user_permissions_related = models.ManyToManyField(
-#     Permission,
-#         verbose_name='user permissions',
-#         blank=True,
-#         related_name='regularuser_set',
-#         related_query_name='regularuser'
-#     )
-#     class Meta:
-#         verbose_name_plural = "Regular Users"
-#     def set_default_customuser_ptr():
-#         try:
-#             return CustomUser.objects.first()
-#         except CustomUser.DoesNotExist:
-#             return None
 
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 
 class CustomUser(AbstractUser):
-
+    phone_number = models.CharField(max_length=20)
+    location = models.CharField(max_length=100)
 
     groups = models.ManyToManyField(
         Group,
@@ -65,20 +28,13 @@ class CustomUser(AbstractUser):
 
 class Gamer(models.Model):
     user = models.CharField(max_length=255)
-    # username = models.CharField(max_length=100, unique=True)
     Password = models.CharField(max_length=100)
-    email = models.EmailField(max_length=255)
-    
-  
+    email = models.CharField(max_length=35)
 
 class Admins(models.Model):
     user = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
+    email = models.CharField(max_length=20)
     password = models.CharField(max_length=255, default="Unknown")
-
-
-
-
 
 
 

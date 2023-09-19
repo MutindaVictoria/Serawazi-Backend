@@ -33,13 +33,13 @@
 
 
 from django.urls import path
-from .views import CustomUserListView,CustomUserDetailView,AdminsRegistrationView,AdminsLoginView,GamerRegistrationView,GamerLoginView,ScenariosDetailView,ScenariosListView
+from .views import AdminsRegistrationView,AdminsLoginView,GamerRegistrationView,GamerLoginView,ScenariosDetailView,ScenariosListView
 from .views import  VirtualItemDetail, VirtualItemUpdate
 from .views import CategoryList, CategoryDetail,ScenarioCollectionListView,ScenarionCollectionDetailView
 
 urlpatterns = [
-    path("users/",CustomUserListView.as_view(), name="user-list"),
-    path("users/<int:id>/", CustomUserDetailView.as_view(), name="user-detail"),
+    # path("users/",CustomUserListView.as_view(), name="user-list"),
+    # path("users/<int:id>/", CustomUserDetailView.as_view(), name="user-detail"),
     path("admins/register/", AdminsRegistrationView.as_view(), name="admins-registration"),
     path("admins/login/", AdminsLoginView.as_view(), name="admins-login"),
     path("gamers/register/", GamerRegistrationView.as_view(), name="gamer-registration"),
@@ -53,17 +53,6 @@ urlpatterns = [
     path('categories/', CategoryList.as_view(), name='category-list'),
     path('categories/<int:id>/', CategoryDetail.as_view(), name='category-detail'),
 ]  
-from django.urls import path
-# from . import views
-from .views import  VirtualItemDetail, VirtualItemUpdate
-from .views import CategoryList, CategoryDetail,ScenarioCollectionListView,ScenarionCollectionDetailView
 
-urlpatterns = [
-    path('scenario-collections/',ScenarioCollectionListView.as_view(), name='scenario-collection-list'),
-    path('scenario-collections/<int:id>/',ScenarionCollectionDetailView.as_view(), name='scenario-collection-detail'),
-    path('virtual_items/',VirtualItemDetail.as_view(), name='virtualtem-detail'),
-    path('virtual_items/<int:id>/', VirtualItemUpdate.as_view(), name='virtualitem-update'),
-    path('categories/', CategoryList.as_view(), name='category-list'),
-    path('categories/<int:id>/', CategoryDetail.as_view(), name='category-detail'),
-]
+
 

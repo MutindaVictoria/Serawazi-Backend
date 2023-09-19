@@ -25,25 +25,15 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, Admins,Gamer
+from .models import  Admins, Gamer
 
 
 
-class CustomUserAdmin(UserAdmin):
-    list_display = ('username', 'email', 'first_name', 'last_name')
-    fieldsets = UserAdmin.fieldsets + (
-        ('Custom Fields', {
-            'fields': ('',),
-        }),
-    )
 
-admin.site.register(CustomUser, CustomUserAdmin)
-
-@admin.register(Admins)
 class AdminsAdmin(admin.ModelAdmin):
     list_display = ('user', 'email', 'password')
+admin.site.register(Admins,AdminsAdmin)
 
-@admin.register(Gamer)
 class GamerAdmin(admin.ModelAdmin):
-        list_display = ('user', 'email')
-
+    list_display = ('user', 'email')
+admin.site.register(Gamer,GamerAdmin)

@@ -29,7 +29,9 @@ from rest_framework.exceptions import ValidationError
 from Scenarios.models import Scenarios
 from .serializers import ScenariosSerializer
 from .serializers import ScenarioCollectionSerializer
+from rest_framework.views import APIView
 from scenario_collection.models import ScenarioCollection
+from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 from .models import Category
 from .serializers import CategorySerializer
@@ -93,29 +95,43 @@ class AdminsLoginView(APIView):
 
 
 
+# class GamerRegistrationView(APIView):
+#     def post(self, request):
+#         username = request.data.get('username')
+#         email = request.data.get('email')
+#         password = request.data.get('password')
+
+#         if User.objects.filter(username=username).exists():
+#             return Response({'message': 'Username already exists'}, status=status.HTTP_409_CONFLICT)
+
+#         user = User.objects.create_user(username=username, email=email, password=password)
+
+#         return Response({'message': 'Registration successful'}, status=status.HTTP_201_CREATED)
 class GamerRegistrationView(APIView):
     def post(self, request):
         username = request.data.get('username')
         email = request.data.get('email')
         password = request.data.get('password')
-
+        
         if User.objects.filter(username=username).exists():
             return Response({'message': 'Username already exists'}, status=status.HTTP_409_CONFLICT)
-
+        
         user = User.objects.create_user(username=username, email=email, password=password)
-
+        
         return Response({'message': 'Registration successful'}, status=status.HTTP_201_CREATED)
     
 class GamerLoginView(APIView):
     def post(self, request):
-        user = request.data.get('user')
-        email = request.data.get('email')
+        username = request.data.get('username')
         password = request.data.get('password')
 
         try:
-            supplier = Gamer.objects.get(user=user, email=email)
-            return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
-        except Gamer.DoesNotExist:
+            user = User.objects.get(username=username)
+            if user.check_password(password):
+                return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'message': 'Invalid password'}, status=status.HTTP_401_UNAUTHORIZED)
+        except User.DoesNotExist:
             return Response({'message': 'Invalid username'}, status=status.HTTP_401_UNAUTHORIZED)
         
 
@@ -127,16 +143,6 @@ class ScenariosListView(APIView):
     def post(self,request):
         serializer = ScenariosSerializer(data = request.data)
 
-from .serializers import ScenarioCollectionSerializer
-from rest_framework.views import APIView
-from scenario_collection.models import ScenarioCollection
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.exceptions import NotFound
-from .models import Category
-from .serializers import CategorySerializer
-from .models import VirtualItem
-from .serializers import VirtualItemSerializer
 
 
 class ScenarioCollectionListView (APIView):
@@ -146,12 +152,10 @@ class ScenarioCollectionListView (APIView):
     return Response(serializer.data)
    def post(self,request):
         serializer = ScenarioCollectionSerializer(data = request.data)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
-
 
 
 class ScenariosDetailView(APIView):

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'category',
     'scenario_collection',
     'virtual_items',
+    'tutorials',
+    'badges',
     'rest_framework',
     'drf_yasg',
     'api',
@@ -83,12 +85,13 @@ from decouple import config
 
 DATABASES = {
     'default': {
-        'ENGINE':'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'ENGINE':'django.db.backends.postgresql',
+        'NAME': 'greenreviveserawazidb',
+        'USER': 'greenreviveuser',
+        'PASSWORD': '@serawazi@5708',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        
        }
 }
 MEDIA_URL='/images/'

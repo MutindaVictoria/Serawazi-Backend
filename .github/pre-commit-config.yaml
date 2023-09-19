@@ -34,4 +34,4 @@
 #     hooks:
 #       - id: black
 #         exclude: ^.*\b(migrations)\b.*$
-#         additional_dependencies: ['click==8.1.0']
+

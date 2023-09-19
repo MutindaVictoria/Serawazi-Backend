@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +42,11 @@ INSTALLED_APPS = [
     'User_Registration',
     'drf_yasg',
     
-    
+    'category',
+    'scenario_collection',
+    'virtual_items',
+    'api',
+
 ]
 
 MIDDLEWARE = [
@@ -81,16 +85,21 @@ WSGI_APPLICATION = 'Serawazi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+from decouple import config
+
 DATABASES = {
     'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'greenreviveserawazidb',
-           'USER': 'greenreviveuser',
-           'PASSWORD': '@serawazi@5708',
-           'HOST': 'localhost',
-           'PORT': '5432',
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
        }
 }
+MEDIA_URL='/images/'
+MEDIA_ROOT =os.path.join(BASE_DIR,'images')
+
 
 
 # Password validation

@@ -22,33 +22,13 @@
 #         # Create a new CustomUser instance
 #         custom_user = CustomUser(**validated_data)
 #         if password:
-#             custom_user.set_password(password)
-#             custom_user.save()
-#         regular_user = RegularUser(custom_user=custom_user)
-#         if password:
-#             regular_user.set_password(password)
-#             regular_user.check_password()
-#             regular_user.save()
-        
-#         return regular_user
-    
-    
-# class ScenariosSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Scenarios
-#         fields = "__all__"##############################
-# # class RegularUserSerializer(serializers.ModelSerializer):
-# #     class Meta:
-# #         model = RegularUser
-# #         fields = ['id', 'first_name', 'last_name', 'email']
-# #         extra_kwargs={'password':{'write_only':True}}
-
-
-
-
 from rest_framework import serializers
 from User_Registration.models import CustomUser,Admins,Gamer
 from Scenarios.models import Scenarios
+from scenario_collection.models import ScenarioCollection
+from .models import Category
+from .models import VirtualItem
+
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -90,3 +70,24 @@ class ScenariosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scenarios
         fields = "__all__"
+
+
+
+class ScenarioCollectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=ScenarioCollection
+        fields='__all__'
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+        
+
+
+class VirtualItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VirtualItem
+        fields = '__all__'
+
+

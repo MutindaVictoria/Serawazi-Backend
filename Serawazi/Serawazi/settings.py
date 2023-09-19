@@ -41,10 +41,12 @@ INSTALLED_APPS = [
     'Scenarios',
     'User_Registration',
     'drf_yasg',
+    
     'category',
     'scenario_collection',
     'virtual_items',
     'api',
+
 ]
 
 MIDDLEWARE = [

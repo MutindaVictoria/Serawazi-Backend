@@ -127,6 +127,16 @@ class ScenariosListView(APIView):
     def post(self,request):
         serializer = ScenariosSerializer(data = request.data)
 
+from .serializers import ScenarioCollectionSerializer
+from rest_framework.views import APIView
+from scenario_collection.models import ScenarioCollection
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.exceptions import NotFound
+from .models import Category
+from .serializers import CategorySerializer
+from .models import VirtualItem
+from .serializers import VirtualItemSerializer
 
 
 class ScenarioCollectionListView (APIView):
@@ -136,10 +146,12 @@ class ScenarioCollectionListView (APIView):
     return Response(serializer.data)
    def post(self,request):
         serializer = ScenarioCollectionSerializer(data = request.data)
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
 
 
 class ScenariosDetailView(APIView):

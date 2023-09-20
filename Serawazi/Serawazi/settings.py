@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# AUTH_USER_MODEL = 'User_Registration.CustomUser'
 
 # Application definition
 
@@ -39,15 +40,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'Scenarios',
-    'User_Registration',
+    'User_Registrations.apps.UserRegistrationsConfig',
     'drf_yasg',
-    
+    'rolepermissions',
     'category',
     'scenario_collection',
     'virtual_items',
     'api',
+   
+    
 
 ]
+AUTH_USER_MODEL = 'User_Registrations.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -86,17 +90,39 @@ WSGI_APPLICATION = 'Serawazi.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 from decouple import config
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'greengreen',      
+#         'USER': 'greenreviveuser',        
+#         'PASSWORD': '@serawazi@5708',
+#         'HOST': 'localhost',    
+#         'PORT': '5432',      
+            
+#     }
+# }
 
 DATABASES = {
     'default': {
-        'ENGINE':'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-       }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'greengreen',
+        'USER': 'greenreviveuser',
+        'PASSWORD': '@serawazi@5708',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE':'django.db.backends.postgresql_psycopg2',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT'),
+#        }
+# }
 MEDIA_URL='/images/'
 MEDIA_ROOT =os.path.join(BASE_DIR,'images')
 

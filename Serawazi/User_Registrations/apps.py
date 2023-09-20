@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class UserRegistrationConfig(AppConfig):
+class UserRegistrationsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'User_Registration'
+    name = 'User_Registrations'

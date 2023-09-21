@@ -1,32 +1,41 @@
 from django.test import TestCase
-from .models import Scenarios
-class ScenariosModelTest(TestCase):
-    def test_create_scenario(self):
-        scenario = Scenarios(
-            scenario_level=1,
-            scenario_title="Sample Scenario",
-            Background_info="Background information for the scenario",
-            Decision_options="Option 1, Option 2, Option 3",
-            Reward_points=100
+from scenario_collection.models import ScenarioCollection
+from .models import Scenarios, Answer
+class ModelsTest(TestCase):
+    def setUp(self):
+        self.collection = ScenarioCollection.objects.create(
+            name='Sample Collection',
+            description='This is a sample scenario collection'
         )
-        scenario.save()
-        saved_scenario = Scenarios.objects.get(pk=scenario.pk)
-        self.assertEqual(saved_scenario.scenario_level, 1)
-        self.assertEqual(saved_scenario.scenario_title, "Sample Scenario")
-        self.assertEqual(saved_scenario.Background_info, "Background information for the scenario")
-        self.assertEqual(saved_scenario.Decision_options, "Option 1, Option 2, Option 3")
-        self.assertEqual(saved_scenario.Reward_points, 100)
-    def test_scenario_str(self):
-        scenario = Scenarios(
+        self.scenario = Scenarios.objects.create(
             scenario_level=1,
-            scenario_title="Sample Scenario",
-            Background_info="Background information for the scenario",
-            Decision_options="Option 1, Option 2, Option 3",
-            Reward_points=100
+            scenario_title='Scenario 1',
+            Background_info='Background info',
+            Decision_options=Scenarios.RIGHT_CHOICE,
+            Reward_points=10,
+            scenario_collection=self.collection
         )
-        self.assertEqual(str(scenario), "Sample Scenario")
-
-
-
-
-
+        self.answer1 = Answer.objects.create(
+            scenario=self.scenario,
+            text='Answer 1',
+            is_correct=True
+        )
+        self.answer2 = Answer.objects.create(
+            scenario=self.scenario,
+            text='Answer 2',
+            is_correct=False
+        )
+    def test_scenario_creation(self):
+        self.assertEqual(self.scenario.scenario_level, 1)
+        self.assertEqual(self.scenario.scenario_title, 'Scenario 1')
+        self.assertEqual(self.scenario.Background_info, 'Background info')
+        self.assertEqual(self.scenario.Decision_options, Scenarios.RIGHT_CHOICE)
+        self.assertEqual(self.scenario.Reward_points, 10)
+        self.assertEqual(self.scenario.scenario_collection, self.collection)
+    def test_answer_creation(self):
+        self.assertEqual(self.answer1.scenario, self.scenario)
+        self.assertEqual(self.answer1.text, 'Answer 1')
+        self.assertTrue(self.answer1.is_correct)
+        self.assertEqual(self.answer2.scenario, self.scenario)
+        self.assertEqual(self.answer2.text, 'Answer 2')
+        self.assertFalse(self.answer2.is_correct)

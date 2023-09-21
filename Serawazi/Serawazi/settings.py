@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'chatbotmodel',
     'api',
     'drf_yasg',
+    ''
 ]
 
 MIDDLEWARE = [

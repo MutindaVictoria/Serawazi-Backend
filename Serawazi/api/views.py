@@ -36,7 +36,7 @@ class MessageDetailView(APIView):
     def delete(self, request,id,format = None):
         message=Message.objects.get(id=id)
         message.delete()
-        return Response("messageDeleted", status = status.HTTP_204_NO_CONTENT)
+        return Response("Message has been Deleted", status = status.HTTP_204_NO_CONTENT)
 
 
 

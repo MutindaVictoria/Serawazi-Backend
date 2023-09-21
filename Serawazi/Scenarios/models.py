@@ -15,7 +15,7 @@ class Scenarios(models.Model):
     Decision_options = models.CharField(max_length=255, choices=DECISION_CHOICES)
     Reward_points = models.IntegerField()
     
-    scenario_collection = models.ForeignKey(ScenarioCollection, on_delete=models.CASCADE)
+    scenario_collection = models.ForeignKey(ScenarioCollection, on_delete=models.CASCADE, related_name='scenarios')
 
     def __str__(self):
         return self.scenario_title

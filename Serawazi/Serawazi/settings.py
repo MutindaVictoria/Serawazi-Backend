@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'category',
     'scenario_collection',
     'virtual_items',
+    'tutorials',
+    'badges',
     'api',
    
     

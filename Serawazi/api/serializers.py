@@ -1,28 +1,18 @@
 
-# from rest_framework import serializers
-
-# from User_Registration.models import Admin, RegularUser,CustomUser
 
 
-# class AdminSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Admin
-#         fields = ('id', 'first_name', 'last_name', 'email', 'age', 'gender', 'achievements')
+from rest_framework import serializers
+from User_Registrations.models import CustomUser 
+from Scenarios.models import Scenarios
+from scenario_collection.models import ScenarioCollection
+from .models import Category
+from .models import VirtualItem
+from .models import Badges
+from tutorials.models import Tutorial
 
-# class RegularUserSerializer(serializers.ModelSerializer):
-#     confirm_password = serializers.CharField(write_only=True)
 
-#     class Meta:
-#         model = RegularUser
-#         fields = ['id', 'first_name', 'last_name', 'email', 'confirm_password']  
 
-#     def create(self, validated_data):
-#         password = validated_data.pop('password', None)
-#         confirm_password = validated_data.pop('confirm_password', None)
-        
-#         # Create a new CustomUser instance
-#         custom_user = CustomUser(**validated_data)
-#         if password:
+
 from rest_framework import serializers
 from User_Registrations.models import CustomUser 
 from Scenarios.models import Scenarios
@@ -71,15 +61,10 @@ class LoginSerializer(serializers.Serializer):
                 raise serializers.ValidationError('Invalid credentials')
         except CustomUser.DoesNotExist:
             raise serializers.ValidationError('Invalid credentials')
-        
+
         data['user'] = user
         return data
 
-    
-class ScenariosSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Scenarios
-        fields = "__all__"
 
 class ScenarioCollectionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -97,3 +82,20 @@ class VirtualItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = VirtualItem
         fields = '__all__'
+
+
+class BadgesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Badges
+        fields = '__all__'
+
+class TutorialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tutorial
+        fields = '__all__'
+
+class ScenariosSerializer(serializers.ModelSerializer):
+    class Meta:
+         model = Scenarios
+         field = '__all__'
+

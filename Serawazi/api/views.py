@@ -1,14 +1,23 @@
+from .serializers import ScenarioCollectionSerializer
+from rest_framework.views import APIView
+from scenario_collection.models import ScenarioCollection
+from rest_framework.response import Response
+from rest_framework import status
+from django.urls import path
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken .models import Token
+from User_Registrations.models import CustomUser
+from django.contrib .auth .models import User
 
-# # # from rest_framework.views import APIView
-# # # from rest_framework.response import Response
-# # # from rest_framework import status
-# # # from django.contrib.auth import login,authenticate
-# # # from User_Registration.models import Admin, RegularUser
-# # # from .serializers import AdminSerializer, RegularUserSerializer
-# # # from django.db import IntegrityError
-# # # from rest_framework.permissions import AllowAny
-# # # from rest_framework.authtoken.models import Token
-# # # from rest_framework.views import APIView
+from rest_framework.exceptions import NotFound
+from django.contrib.auth import get_user_model
+from .models import Category
+from .serializers import CategorySerializer
+from .models import VirtualItem
+from .serializers import VirtualItemSerializer
+from .models import Scenarios
+from .models import Badges
 
 
 from django.urls import path
@@ -44,15 +53,15 @@ from django.contrib.auth import get_user_model
 # #     def post(self, request):
 # #         data = request.data
 # #         serializer = UserSerializer(data=data)
-        
+
 # #         if serializer.is_valid():
 # #             user = serializer.save()
-            
+
 # #             gamer_role, _ = Role.objects.get_or_create(name="Gamer")
 # #             user.roles.add(gamer_role)
-            
+
 # #             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
+
 # #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -109,6 +118,11 @@ from rest_framework.authtoken.models import Token
 from User_Registrations.models import CustomUser
 from django.contrib.auth import get_user_model
 from rest_framework import status
+from rest_framework.exceptions import NotFound
+from .models import Category
+from .serializers import CategorySerializer
+from .models import VirtualItem
+from .serializers import VirtualItemSerializer
 from rest_framework import generics
 
 
@@ -121,19 +135,19 @@ User = get_user_model()
 class UserRegistrationView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
-        
+
         if serializer.is_valid():
             user = serializer.save()
             gamer_role, created = roles.objects.get_or_create(name="Gamer")
             user.roles.add(gamer_role)
-            
+
             # Include a success message in the response
             response_data = {
                 "message": "Registration successful. You have been logged in."
             }
-            
+
             return Response(response_data, status=status.HTTP_201_CREATED)
-        
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserRegistrationListView(generics.ListAPIView):
@@ -171,7 +185,7 @@ class UserLoginView(APIView):
             return Response({'Login succesfull'},status=status.HTTP_200_OK)
         else:
             return Response({'Invalid Credentials'},status= status.HTTP_401_UNAUTHORIZED)
-        
+
         # serializer = LoginSerializer(data=request.data)
         # if serializer.is_valid():
         #     user = serializer.validated_data['user']
@@ -192,6 +206,7 @@ class ScenariosListView(APIView):
         return Response(serializer.data)
     def post(self,request):
         serializer = ScenariosSerializer(data = request.data)
+
 
 
 
@@ -346,23 +361,96 @@ class VirtualItemUpdate(APIView):
             return Response({"detail": "VirtualItem deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except VirtualItem.DoesNotExist:
             return Response({"detail": "VirtualItem not found"}, status=status.HTTP_404_NOT_FOUND)
-    
+        
+
+from .serializers import BadgesSerializer, TutorialSerializer
+from tutorials.models import Tutorial
+from badges.models import Badges
 
 
 
 
 
+class BadgesList(APIView):
+    def get(self, request):
+        badges = Badges.objects.all()
+        serializer = BadgesSerializer(badges, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = BadgesSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class BadgesDetail(APIView):
+    def get(self, request, id):
+        try:
+            badge = Badges.objects.get(id=id)
+            serializer = BadgesSerializer(badge)
+            return Response(serializer.data)
+        except Badges.DoesNotExist:
+            return Response({"detail": "Badge not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def put(self, request, id):
+        try:
+            badge = Badges.objects.get(id=id)
+            serializer = BadgesSerializer(badge, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Badges.DoesNotExist:
+            return Response({"detail": "Badge not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self, request, id):
+        try:
+            badge = Badges.objects.get(id=id)
+            badge.delete()
+            return Response({"detail": "Badge deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except Badges.DoesNotExist:
+            return Response({"detail": "Badge not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
+# Tutorial API views
+class TutorialList(APIView):
+    def get(self, request):
+        tutorials = Tutorial.objects.all()
+        serializer = TutorialSerializer(tutorials, many=True)
+        return Response(serializer.data)
 
+    def post(self, request):
+        serializer = TutorialSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class TutorialDetail(APIView):
+    def get(self, request, id):
+        try:
+            tutorial = Tutorial.objects.get(id=id)
+            serializer = TutorialSerializer(tutorial)
+            return Response(serializer.data)
+        except Tutorial.DoesNotExist:
+            return Response({"detail": "Tutorial not found"}, status=status.HTTP_404_NOT_FOUND)
 
+    def put(self, request, id):
+        try:
+            tutorial = Tutorial.objects.get(id=id)
+            serializer = TutorialSerializer(tutorial, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Tutorial.DoesNotExist:
+            return Response({"detail": "Tutorial not found"}, status=status.HTTP_404_NOT_FOUND)
 
-
-
-
-
-
-
-
-
+    def delete(self, request, id):
+        try:
+            tutorial = Tutorial.objects.get(id=id)
+            tutorial.delete()
+            return Response({"detail": "Tutorial deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except Tutorial.DoesNotExist:
+            return Response({"detail": "Tutorial not found"}, status=status.HTTP_404_NOT_FOUND)

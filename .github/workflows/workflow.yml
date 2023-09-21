@@ -22,17 +22,17 @@
 #           python-version: '3.9'
 #       - name: Install requirements
 #         run: pip install -r Serawazi/requirements.txt
-    #   - name: Check Syntax
-    #     run: pre-commit run --all-files
-      # - name: Make Migrations
-      #   run: |
-      #     python3 manage.py makemigrations
-      # - name: Migration
-      #   run: |
-      #     python3 manage.py migrate
-      # - name: Run server
-      #   run: |
-      #     python3 manage.py runserver
-      # - name: Run Tests
-      #   run: |
-      #     python3 manage.py test
+#     #   - name: Check Syntax
+#     #     run: pre-commit run --all-files
+#       # - name: Make Migrations
+#       #   run: |
+#       #     python3 manage.py makemigrations
+#       # - name: Migration
+#       #   run: |
+#       #     python3 manage.py migrate
+#       # - name: Run server
+#       #   run: |
+#       #     python3 manage.py runserver
+#       # - name: Run Tests
+#       #   run: |
+#       #     python3 manage.py test

@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,10 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# AUTH_USER_MODEL = 'User_Registration.CustomUser'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'User_Registrations.apps.UserRegistrationsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,11 +41,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'chatbotmodel',
-    'api',
+    'Scenarios',
     'drf_yasg',
-    ''
+    # 'rolepermissions',
+    'category',
+    'scenario_collection',
+    'virtual_items',
+    'tutorials',
+    'badges',
+    'api',
+    # 'User_Registrations',
+   
+    
+
 ]
+AUTH_USER_MODEL = 'User_Registrations.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +65,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+
 ]
 
 ROOT_URLCONF = 'Serawazi.urls'
@@ -79,16 +93,23 @@ WSGI_APPLICATION = 'Serawazi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+from decouple import config
+
+
+
 DATABASES = {
     'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'greenreviveserawazidb',
-           'USER': 'greenreviveuser',
-           'PASSWORD': '@serawazi@5708',
-           'HOST': 'localhost',
-           'PORT': '5432',
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
        }
 }
+MEDIA_URL='/images/'
+MEDIA_ROOT =os.path.join(BASE_DIR,'images')
+
 
 
 # Password validation
@@ -131,3 +152,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend', 
+#     'User_Registration.authentication.EmailAuthBackend'
+# ]
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}

@@ -1,3 +1,8 @@
 __pycache__/
-.env
+env/
 myenv/
+<<<<<<< HEAD
+.env
+=======
+
+>>>>>>> origin/feature/usermodels

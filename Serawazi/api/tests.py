@@ -1,4 +1,6 @@
 from django.test import TestCase
+
+# Create your tests here.
 from django.core.files.uploadedfile import SimpleUploadedFile
 from scenario_collection.models import ScenarioCollection
 

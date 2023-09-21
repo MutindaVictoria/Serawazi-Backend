@@ -7,3 +7,5 @@ myenv/
 .env
 env
 staticfiles
+__pycache__
+

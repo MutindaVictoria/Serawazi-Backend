@@ -8,7 +8,6 @@ class Scenarios(models.Model):
         (RIGHT_CHOICE, 'Right'),
         (WRONG_CHOICE, 'Wrong'),
     ]
-
     scenario_level = models.IntegerField()
     scenario_title = models.CharField(max_length=255, unique=True)  # Ensure scenario_title is unique
     Background_info = models.TextField(max_length=255)

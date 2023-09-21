@@ -6,6 +6,7 @@ class Category(models.Model):
     Category_Image = models.ImageField(upload_to='images/')
     Is_Active = models.BooleanField()
 
+
     def __str__(self):
         return self.Category_Options  
 

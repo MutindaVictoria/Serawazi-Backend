@@ -110,6 +110,8 @@ from User_Registrations.models import CustomUser
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework import generics
+
+
 from . import roles
 from . import models
 
@@ -118,18 +120,19 @@ User = get_user_model()
 
 class UserRegistrationView(APIView):
     def post(self, request):
-        # data = request.data
         serializer = UserSerializer(data=request.data)
         
         if serializer.is_valid():
             user = serializer.save()
-            user.save()
-            gamer_role = roles.objects.get_or_create(name="Gamer")
+            gamer_role, created = roles.objects.get_or_create(name="Gamer")
             user.roles.add(gamer_role)
-            objects = models.Manager()
             
+            # Include a success message in the response
+            response_data = {
+                "message": "Registration successful. You have been logged in."
+            }
             
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(response_data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

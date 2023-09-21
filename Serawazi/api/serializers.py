@@ -1,6 +1,3 @@
-
-
-
 from rest_framework import serializers
 from User_Registrations.models import CustomUser 
 from Scenarios.models import Scenarios

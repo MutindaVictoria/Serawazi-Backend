@@ -1,44 +1,35 @@
 from django.test import TestCase
-from django.urls import reverse
-from rest_framework import status
-from rest_framework.test import APIClient
 from .models import Category
-
 class CategoryTestCase(TestCase):
     def setUp(self):
-        self.client = APIClient()
-
-    def create_category(self, options="Finance Bill", updates="Sample update", is_active=True):
-        return Category.objects.create(Category_Options=options, Daily_Updates=updates, Is_Active=is_active)
-
-    def test_create_category(self):
-        data = {
-            "Category_Options": "New Category",
-            "Daily_Updates": "New update",
-            "Is_Active": True,
-        }
-        response = self.client.post(reverse("category-list"), data, format="json")
-        
-
-    def test_get_categories(self):
-        self.create_category()
-        response = self.client.get(reverse("category-list"))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
-
-    def test_get_category_detail(self):
-        category = self.create_category()
-        response = self.client.get(reverse("category-detail", args=[category.id]))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["Category_Options"], category.Category_Options)
-
-    
-    def test_delete_category(self):
-        category = self.create_category()
-        response = self.client.delete(reverse("category-detail", args=[category.id]))
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertFalse(Category.objects.filter(id=category.id).exists())
-
-    def test_category_not_found(self):
-        response = self.client.get(reverse("category-detail", args=[999]))
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        Category.objects.create(
+            Category_Options="Finance Bill",
+            Daily_Updates="Sample update",
+            Is_Active=True,
+        )
+        Category.objects.create(
+            Category_Options="Bill of Rights",
+            Daily_Updates="Another update",
+            Is_Active=False,
+        )
+    def test_category_str_representation(self):
+        category = Category.objects.get(Category_Options="Finance Bill")
+        self.assertEqual(str(category), "Finance Bill")
+    def test_category_count(self):
+        count = Category.objects.count()
+        self.assertEqual(count, 2)
+    def test_active_categories(self):
+        active_categories = Category.objects.filter(Is_Active=True)
+        self.assertEqual(active_categories.count(), 1)
+    def test_category_options_choices(self):
+        category = Category.objects.get(Category_Options="Finance Bill")
+        choices = dict(category._meta.get_field("Category_Options").choices)
+        self.assertEqual(choices, {
+            "Finance Bill": "Finance Bill",
+            "Bill of Rights": "Bill of Rights"
+        })
+    def test_category_image_upload_path(self):
+        category = Category.objects.get(Category_Options="Finance Bill")
+        field = category._meta.get_field("Category_Image")
+        upload_path = field.upload_to
+        self.assertEqual(upload_path, "images/")

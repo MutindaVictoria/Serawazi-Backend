@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser, Permission, Group
 from django.db import models
 
 class Roles(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=110)
     permissions = models.ManyToManyField(Permission, related_name='roles')
     
 

@@ -28,7 +28,6 @@ from rest_framework import permissions
 schema_view = get_schema_view(
     openapi.Info(
         title="SeraWazi API",
-
         default_version='v1',
         description="API documentation for the SeraWazi project",
         terms_of_service="https://example.com/terms/",
@@ -38,9 +37,7 @@ schema_view = get_schema_view(
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
-
-
-    
+   
     
 
 

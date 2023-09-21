@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-$zddjb%j)unx$nietdz1jx81b&u%9p&)b419efyco(%ks4n$#$'
+OPENAI_KEY = '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'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'User_Registrations.apps.UserRegistrationsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,15 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'Scenarios',
-    'User_Registrations.apps.UserRegistrationsConfig',
     'drf_yasg',
-    'rolepermissions',
+    # 'rolepermissions',
     'category',
     'scenario_collection',
     'virtual_items',
     'tutorials',
     'badges',
     'api',
+    # 'User_Registrations',
    
     
 

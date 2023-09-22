@@ -110,8 +110,6 @@ DATABASES = {
 MEDIA_URL='/images/'
 MEDIA_ROOT =os.path.join(BASE_DIR,'images')
 
-DISABLE_COLLECTSTATIC = True
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -159,8 +157,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     'django.contrib.auth.backends.ModelBackend', 
 #     'User_Registration.authentication.EmailAuthBackend'
 # ]
-
-
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

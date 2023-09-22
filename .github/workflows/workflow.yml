@@ -22,7 +22,64 @@
 #           python-version: '3.9'
 #       - name: Install requirements
 #         run: pip install -r Serawazi/requirements.txt
-#     #- name: Check Syntax
+    #   - name: Check Syntax
+    #     run: pre-commit run --all-files
+      # - name: Make Migrations
+      #   run: |
+      #     python3 manage.py makemigrations
+      # - name: Migration
+      #   run: |
+      #     python3 manage.py migrate
+      # - name: Run server
+      #   run: |
+      #     python3 manage.py runserver
+      # - name: Run Tests
+      #   run: |
+      #     python3 manage.py test# name: Django Build and Test CICD
+# on:
+#   push:
+#     branches:
+#       - main
+#       - dev
+#       - staging
+#   pull_request:
+#     branches:
+#       - main
+#       - dev
+#       - staging
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+#       - name: Set up Python Environment
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: '3.9'
+#       - name: Install requirements
+#         run: pip install -r Serawazi/requirements.txt
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/feature/usermodels
+    #   - name: Check Syntax
+    #     run: pre-commit run --all-files
+      # - name: Make Migrations
+      #   run: |
+      #     python3 manage.py makemigrations
+      # - name: Migration
+      #   run: |
+      #     python3 manage.py migrate
+      # - name: Run server
+      #   run: |
+      #     python3 manage.py runserver
+      # - name: Run Tests
+      #   run: |
+      #     python3 manage.py test
+<<<<<<< HEAD
+=======
+#     #   - name: Check Syntax
 #     #     run: pre-commit run --all-files
 #       # - name: Make Migrations
 #       #   run: |
@@ -36,3 +93,8 @@
 #       # - name: Run Tests
 #       #   run: |
 #       #     python3 manage.py test
+>>>>>>> dev
+=======
+
+
+>>>>>>> origin/feature/usermodels

@@ -71,31 +71,4 @@ class BadgesModelTest(TestCase):
         saved_badge = Badges.objects.get(pk=badge.pk)
         self.assertTrue(saved_badge.image.name.startswith("badge_images/"))
 
-    # def test_image_field(self):
-    #     badge = Badges(
-    #         name="Image Field Badge",
-    #         description="Description for image field badge",
-    #         image=self.image
-    #     )
-    #     badge.save()
-
-    #     saved_badge = Badges.objects.get(pk=badge.pk)
-    #     self.assertTrue(saved_badge.image.name.endswith(".jpg"))
-
-    # def test_name_max_length(self):
-    #     badge = Badges(
-    #         name="A" * 256,  
-    #         description="Description for a badge with a long name",
-    #         image=self.image
-    #     )
-
-    #     with self.assertRaises(Exception):
-    #         badge.save()
-
-    # def test_description_max_length(self):
-    #     badge = Badges(
-    #         name="Long Description Badge",
-    #         description="A" * 1001,  
-    #         image=self.image
-    #     )
-
+   

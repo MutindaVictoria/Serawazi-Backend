@@ -5,8 +5,7 @@ build
 env/
 myenv/
 .env
-.env1/
-staticfiles
+/staticfiles/
 __pycache__
 images/
 media/

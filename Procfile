@@ -1,1 +1,1 @@
-web: gunicorn SeraWazi.wsgi --log-file -
+web: gunicorn Serawazi.wsgi --log-file -

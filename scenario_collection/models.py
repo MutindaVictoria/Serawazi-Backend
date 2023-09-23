@@ -4,7 +4,7 @@ class ScenarioCollection(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     cover_Image = models.ImageField(upload_to='covers/')
-    total_Scenarios = models.IntegerField(default=0)
+    total_Scenarios = models.IntegerField(default=5)
 
     def calculate_total_scenarios(self):
         total = ScenarioCollection.objects.filter(name=self.name).count()

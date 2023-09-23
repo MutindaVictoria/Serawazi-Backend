@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'tutorials',
     'badges',
     'api',
+    'PIL',
     # 'User_Registrations',
    
     

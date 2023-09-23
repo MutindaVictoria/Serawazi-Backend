@@ -7,5 +7,4 @@ myenv/
 .env
 /staticfiles/
 __pycache__
-images/
 media/

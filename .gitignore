@@ -1,8 +1,11 @@
 __pycache__/
+db.sqlite3
+cache
+build
 env/
 myenv/
-<<<<<<< HEAD
 .env
-=======
-
->>>>>>> origin/feature/usermodels
+/staticfiles/
+__pycache__
+images/
+media/

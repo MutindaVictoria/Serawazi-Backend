@@ -115,18 +115,19 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
-from User_Registrations.models import CustomUser
+from User_Registrations.models import CustomUser,Roles
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.exceptions import NotFound
 from .models import Category
 from .serializers import CategorySerializer
 from .models import VirtualItem
+from .import roles
 from .serializers import VirtualItemSerializer
 from rest_framework import generics
+from api.roles import ROLES_PERMISSIONS_MAPPING
 
 
-from . import roles
 from . import models
 
 
@@ -138,10 +139,13 @@ class UserRegistrationView(APIView):
 
         if serializer.is_valid():
             user = serializer.save()
-            gamer_role, created = roles.objects.get_or_create(name="Gamer")
-            user.roles.add(gamer_role)
+            
+            # Assuming "Gamer" role exists in your ROLES_PERMISSIONS_MAPPING
+            gamer_permissions = ROLES_PERMISSIONS_MAPPING.get("Gamer", [])
+            
+            
+            (user, gamer_permissions)
 
-            # Include a success message in the response
             response_data = {
                 "message": "Registration successful. You have been logged in."
             }
@@ -170,6 +174,7 @@ class UserRegistrationDeleteView(generics.DestroyAPIView):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response({"message": "User deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+
 
 class UserLoginView(APIView):
     def post(self, request):

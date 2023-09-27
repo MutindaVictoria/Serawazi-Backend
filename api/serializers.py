@@ -94,5 +94,5 @@ class TutorialSerializer(serializers.ModelSerializer):
 class ScenariosSerializer(serializers.ModelSerializer):
     class Meta:
          model = Scenarios
-         field = '__all__'
+         fields = '__all__'
 

@@ -201,9 +201,6 @@ class UserLoginView(APIView):
 
 
 
-
-
-
 class ScenariosListView(APIView):
     def get(self, request):
         scenarios = Scenarios.objects.all()
@@ -211,6 +208,18 @@ class ScenariosListView(APIView):
         return Response(serializer.data)
     def post(self,request):
         serializer = ScenariosSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+    def put(self, request, id):
+        scenarios = self.get_object(id)
+        serializer = ScenariosSerializer(scenarios, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 

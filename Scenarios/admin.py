@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import Scenarios  # Use a relative import here
+from .models import Levels, Scenarios
 
-# Register your models here.
+class LevelsAdmin(admin.ModelAdmin):
+    list_display = ['level_title']
+
 class ScenariosAdmin(admin.ModelAdmin):
+    list_display = ['background_info', 'correct_answer', 'incorrect_answer', 'image', 'level']
 
-    list_display = ('scenario_level', 'scenario_title', 'Background_info', 'correct_answer','incorrect_answer','image',)
-
+admin.site.register(Levels, LevelsAdmin)
 admin.site.register(Scenarios, ScenariosAdmin)
-
-

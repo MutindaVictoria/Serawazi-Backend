@@ -98,8 +98,6 @@ WSGI_APPLICATION = 'Serawazi.wsgi.application'
 
 from decouple import config
 
-
-
 # DATABASES = {
 #      'default': {
 #          'ENGINE':'django.db.backends.postgresql_psycopg2',
@@ -110,6 +108,7 @@ from decouple import config
 #         'PORT': config('DB_PORT'),
 #        }
 # }
+
 MEDIA_URL='/images/'
 MEDIA_ROOT =os.path.join(BASE_DIR,'images')
 

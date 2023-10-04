@@ -8,3 +8,4 @@ myenv/
 /staticfiles/
 __pycache__
 media/
+env1

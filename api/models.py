@@ -47,32 +47,58 @@ class VirtualItem(models.Model):
 
     def __str__(self):
         return self.name
-from django.db import models
-from scenario_collection.models import ScenarioCollection
+    
+
+class Levels(models.Model):
+    LEVEL_CHOICES = (
+        (1, 'Level 1'),
+        (2, 'Level 2'),
+        (3, 'Level 3'),  
+        (4, 'Level 4'),         
+    )
+    level_title = models.CharField(max_length=255)  
+    
+    def __str__(self):
+        return self.get_level_title_display()  
 
 class Scenarios(models.Model):
-    RIGHT_CHOICE = 'Right'
-    WRONG_CHOICE = 'Wrong'
-    DECISION_CHOICES = [
-        (RIGHT_CHOICE, 'Right'),
-        (WRONG_CHOICE, 'Wrong'),
-    ]
-
-    scenario_level = models.IntegerField()
-    scenario_title = models.CharField(max_length=255, unique=True)  # Ensure scenario_title is unique
-    Background_info = models.TextField(max_length=255)
-    Decision_options = models.CharField(max_length=255, choices=DECISION_CHOICES)
-    Reward_points = models.IntegerField()
+    background_info = models.TextField()
+    correct_answer = models.TextField(max_length=255)
+    incorrect_answer = models.TextField(max_length=255)
+    image = models.ImageField(upload_to='covers/')
+    level = models.ForeignKey(Levels, on_delete=models.CASCADE)
     
-    scenario_collection = models.ForeignKey(ScenarioCollection, on_delete=models.CASCADE, related_name='api_scenarios')
-
     def __str__(self):
-        return self.scenario_title
+        return self.background_info
 
-class Answer(models.Model):
-    scenario = models.ForeignKey(Scenarios, on_delete=models.CASCADE)
-    text = models.CharField(max_length=255)
-    is_correct = models.BooleanField()
 
-    def __str__(self):
-        return self.text
+
+# from scenario_collection.models import ScenarioCollection
+
+# class Scenarios(models.Model):
+#     RIGHT_CHOICE = 'Right'
+#     WRONG_CHOICE = 'Wrong'
+#     DECISION_CHOICES = [
+#         (RIGHT_CHOICE, 'Right'),
+#         (WRONG_CHOICE, 'Wrong'),
+#     ]
+
+#     scenario_level = models.IntegerField()
+#     scenario_title = models.CharField(max_length=255, unique=True)  # Ensure scenario_title is unique
+#     Background_info = models.TextField(max_length=255)
+#     Decision_options = models.CharField(max_length=255, choices=DECISION_CHOICES)
+#     Reward_points = models.IntegerField()
+    
+#     scenario_collection = models.ForeignKey(ScenarioCollection, on_delete=models.CASCADE, related_name='api_scenarios')
+
+#     def __str__(self):
+#         return self.scenario_title
+
+# class Answer(models.Model):
+#     scenario = models.ForeignKey(Scenarios, on_delete=models.CASCADE)
+#     text = models.CharField(max_length=255)
+#     is_correct = models.BooleanField()
+
+#     def __str__(self):
+#         return self.text
+

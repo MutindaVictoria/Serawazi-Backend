@@ -221,9 +221,6 @@ class ScenariosListView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
-
 class ScenarioCollectionListView (APIView):
    def get(self, request):
     message = ScenarioCollection.objects.all()

@@ -1,0 +1,36 @@
+                                    List of relations
+ Schema |                         Name                          | Type  |      Owner      
+--------+-------------------------------------------------------+-------+-----------------
+ public | Scenarios_scenarios                                   | table | greenreviveuser
+ public | User_Registrations_customuser                         | table | greenreviveuser
+ public | User_Registrations_customuser_custom_groups           | table | greenreviveuser
+ public | User_Registrations_customuser_custom_user_permissions | table | greenreviveuser
+ public | User_Registrations_customuser_groups                  | table | greenreviveuser
+ public | User_Registrations_customuser_roles                   | table | greenreviveuser
+ public | User_Registrations_customuser_user_permissions        | table | greenreviveuser
+ public | User_Registrations_roles                              | table | greenreviveuser
+ public | User_Registrations_roles_permissions                  | table | greenreviveuser
+ public | api_answer                                            | table | greenreviveuser
+ public | api_badges                                            | table | greenreviveuser
+ public | api_category                                          | table | greenreviveuser
+ public | api_scenariocollection                                | table | greenreviveuser
+ public | api_scenarios                                         | table | greenreviveuser
+ public | api_virtualitem                                       | table | greenreviveuser
+ public | auth_group                                            | table | greenreviveuser
+ public | auth_group_permissions                                | table | greenreviveuser
+ public | auth_permission                                       | table | greenreviveuser
+ public | auth_user                                             | table | greenreviveuser
+ public | auth_user_groups                                      | table | greenreviveuser
+ public | auth_user_user_permissions                            | table | greenreviveuser
+ public | badges_badges                                         | table | greenreviveuser
+ public | category_category                                     | table | greenreviveuser
+ public | chatbotmodel_message                                  | table | greenreviveuser
+ public | django_admin_log                                      | table | greenreviveuser
+ public | django_content_type                                   | table | greenreviveuser
+ public | django_migrations                                     | table | greenreviveuser
+ public | django_session                                        | table | greenreviveuser
+ public | scenario_collection_scenariocollection                | table | greenreviveuser
+ public | tutorials_tutorial                                    | table | greenreviveuser
+ public | virtual_items_virtualitem                             | table | greenreviveuser
+(31 rows)
+

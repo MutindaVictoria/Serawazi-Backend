@@ -7,7 +7,7 @@ class Levels(models.Model):
         (3, 'Level 3'),  
         (4, 'Level 4'),         
     )
-    level_title = models.CharField(max_length=255)  
+    level_title = models.CharField(max_length=256)  
     
     def __str__(self):
         return self.level_title 

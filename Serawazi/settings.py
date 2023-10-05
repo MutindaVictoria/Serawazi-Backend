@@ -101,13 +101,20 @@ from decouple import config
 # DATABASES = {
 #      'default': {
 #          'ENGINE':'django.db.backends.postgresql_psycopg2',
-#          'NAME': config('DB_NAME'),
-#         'USER': config('DB_USER'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST'),
-#         'PORT': config('DB_PORT'),
+#          'NAME': 'greenreviveserawazidb',
+#         'USER': 'greenreviveusers',
+#         'PASSWORD': '@serawazi@5708',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
 #        }
 # }
+
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
+
 
 MEDIA_URL='/images/'
 MEDIA_ROOT =os.path.join(BASE_DIR,'images')

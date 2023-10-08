@@ -12,7 +12,6 @@ class ScenarioCollection(models.Model):
 
     def save(self, *args, **kwargs):
         self.total_Scenarios = self.calculate_total_scenarios()
-        self.save()
         super().save(*args, **kwargs)
 
     def __str__(self):

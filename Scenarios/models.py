@@ -16,7 +16,7 @@ class Scenarios(models.Model):
     background_info = models.TextField(default='')
     correct_answer = models.TextField(max_length=255)
     incorrect_answer = models.TextField(max_length=255)
-    image = models.ImageField(upload_to='covers/')
+    image = models.URLField(max_length=2000)
     level = models.ForeignKey(Levels, on_delete=models.CASCADE)
     
     def __str__(self):
